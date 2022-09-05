@@ -1,0 +1,48 @@
+dataset_class: feedback_essay_ds
+model_class: feedback_essay_model
+architecture:
+    aux_type: false
+    backbone: microsoft/deberta-v3-large
+    custom_intermediate_dropout: false
+    dropout: 0
+    intermediate_dropout: 0.1
+    pool: All [CLS] token
+    pretrained_weights: ''
+    use_type: false
+dataset:
+    add_group_types: true
+    group_discourse: true
+    fold: -1
+    label_columns:
+    - discourse_effectiveness_Adequate
+    - discourse_effectiveness_Effective
+    - discourse_effectiveness_Ineffective
+    separator: ''
+    text_column:
+    - essay_text
+    train_dataframe: data/train_folded.csv
+environment:
+    mixed_precision: true
+    number_of_workers: 4
+    seed: -1
+experiment_name: axiomatic-vulture-ff
+tokenizer:
+    add_newline_token: true
+    lowercase: false
+    max_length: 2048
+training:
+    aux_loss_function: CrossEntropy
+    batch_size: 1
+    drop_last_batch: true
+    epochs: 2
+    grad_accumulation: 9
+    gradient_clip: 0
+    learning_rate: 3.0e-05
+    differential_learning_rate: 1.0e-05
+    differential_learning_rate_layers: []
+    loss_function: CrossEntropy
+    optimizer: AdamW
+    schedule: Linear
+    train_validation_data: true
+    warmup_epochs: 0
+    weight_decay: 0

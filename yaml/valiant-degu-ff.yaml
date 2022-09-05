@@ -1,0 +1,52 @@
+dataset_class: feedback_essay_ds
+model_class: feedback_essay_model
+architecture:
+    aux_type: false
+    backbone: microsoft/deberta-v3-large
+    custom_intermediate_dropout: false
+    dropout: 0
+    gradient_checkpointing: false
+    intermediate_dropout: 0.1
+    pool: GeM
+    pretrained_weights: output/pretrain-type-v9/checkpoint.pth
+    use_type: false
+dataset:
+    fold: -1
+    group_discourse: false
+    label_columns:
+    - discourse_effectiveness_Adequate
+    - discourse_effectiveness_Effective
+    - discourse_effectiveness_Ineffective
+    separator: ''
+    text_column:
+    - discourse_type
+    - discourse_type_essay
+    - discourse_text
+    train_dataframe: data/train_folded.csv
+environment:
+    mixed_precision: true
+    number_of_workers: 4
+    seed: -1
+experiment_name: valiant-degu-ff.2
+tokenizer:
+    add_newline_token: true
+    lowercase: false
+    max_length: 512
+training:
+    aux_loss_function: CrossEntropy
+    batch_size: 16
+    differential_learning_rate: 1.0e-05
+    differential_learning_rate_layers: []
+    drop_last_batch: true
+    epochs: 2
+    grad_accumulation: 1
+    gradient_clip: 0
+    learning_rate: 1.0e-05
+    loss_function: CrossEntropy
+    mixup_concentration: 1
+    mixup_probability: 0
+    optimizer: AdamW
+    schedule: Cosine
+    train_validation_data: true
+    warmup_epochs: 1
+    weight_decay: 0

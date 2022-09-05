@@ -1,0 +1,49 @@
+dataset_class: feedback_essay_ds
+model_class: feedback_essay_model
+architecture:
+    aux_type: true
+    backbone: microsoft/deberta-v3-large
+    custom_intermediate_dropout: false
+    dropout: 0
+    gradient_checkpointing: false
+    intermediate_dropout: 0.1
+    pool: All [CLS] token
+    pretrained_weights: output/pseudo-pretrain-75-seedblend-aux-v10-ff/checkpoint.pth
+    use_type: false
+dataset:
+    add_group_types: true
+    fold: -1
+    group_discourse: true
+    label_columns:
+    - discourse_effectiveness_Adequate
+    - discourse_effectiveness_Effective
+    - discourse_effectiveness_Ineffective
+    separator: ''
+    text_column:
+    - essay_text
+    train_dataframe: data/train_folded.csv
+environment:
+    mixed_precision: true
+    number_of_workers: 4
+    seed: -1
+experiment_name: smart-bumblebee-ff
+tokenizer:
+    add_newline_token: true
+    lowercase: false
+    max_length: 2048
+training:
+    aux_loss_function: CrossEntropy
+    batch_size: 1
+    differential_learning_rate: 1.0e-05
+    differential_learning_rate_layers: []
+    drop_last_batch: true
+    epochs: 3
+    grad_accumulation: 9
+    gradient_clip: 0
+    learning_rate: 3.0e-05
+    loss_function: CrossEntropy
+    optimizer: AdamW
+    schedule: Linear
+    train_validation_data: true
+    warmup_epochs: 1
+    weight_decay: 0

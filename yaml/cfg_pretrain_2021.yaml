@@ -1,0 +1,39 @@
+dataset_class: feedback_dataset
+model_class: feedback_model
+architecture:
+    add_wide_dropout: false
+    backbone: microsoft/deberta-large
+    dropout: 0.1
+    gradient_checkpointing: true
+    pretrained_weights: ''
+dataset:
+    fold: -1
+    label_columns: tokens
+    num_classes: 7
+    text_column: essay_text
+    train_dataframe: data/feedback_2021_pretrain.pq
+environment:
+    mixed_precision: true
+    number_of_workers: 4
+    seed: -1
+experiment_name: pretrain-2021
+tokenizer:
+    lowercase: false
+    max_length: 2048
+training:
+    add_types: false
+    batch_size: 8
+    differential_learning_rate: 1.0e-05
+    differential_learning_rate_layers: []
+    drop_last_batch: true
+    epochs: 1
+    grad_accumulation: 1
+    gradient_clip: 5
+    is_pseudo: false
+    learning_rate: 2.0e-05
+    loss_function: CrossEntropy
+    optimizer: AdamW
+    schedule: Linear
+    use_awp: false
+    warmup_epochs: 0.5
+    weight_decay: 0.001
